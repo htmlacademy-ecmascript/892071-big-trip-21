@@ -3,7 +3,7 @@ import ListFiltersView from './view/list-filters-view.js';
 import MainPresenter from './presenters/main-presenter.js';
 import TripInfoView from './view/trip-info-view.js';
 
-const headerContainer = document.querySelector('.page-header')
+const headerContainer = document.querySelector('.page-header');
 const mainContainer = document.querySelector('.page-main');
 
 const tripInfoContainer = headerContainer.querySelector('.trip-main');
