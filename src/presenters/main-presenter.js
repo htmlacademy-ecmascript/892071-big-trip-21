@@ -1,23 +1,25 @@
 import { render } from '../render.js';
-import ListSortsView from '../view/list-sort-view.js';
-import ListEventView from '../view/list-event-view.js';
-import ItemEventView from '../view/item-event-view.js';
+import SortView from '../view/sort-view.js';
+import ListEventsView from '../view/list-events-view.js';
+import ItemEventView from '../view/item-view.js';
 import EditPointView from '../view/edit-point-view.js';
 
-export default class MainPresenter {
-  listSort = new ListSortsView();
-  listEvents = new ListEventView();
+const TRIP_ITEM_COUNT = 3;
 
-  constructor({ viewContainer }) {
-    this.viewContainer = viewContainer;
+export default class MainPresenter {
+  listSort = new SortView();
+  listEvents = new ListEventsView();
+
+  constructor({ eventsContainer }) {
+    this.eventsContainer = eventsContainer;
   }
 
   init() {
-    render(this.listSort, this.viewContainer);
-    render(this.listEvents, this.viewContainer);
+    render(this.listSort, this.eventsContainer);
+    render(this.listEvents, this.eventsContainer);
     render(new EditPointView(), this.listEvents.getElement());
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < TRIP_ITEM_COUNT; i++) {
       render(new ItemEventView(), this.listEvents.getElement());
     }
   }
