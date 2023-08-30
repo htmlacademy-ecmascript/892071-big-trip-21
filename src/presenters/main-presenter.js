@@ -27,6 +27,6 @@ export default class MainPresenter {
 
     this.pointsList.slice(1).forEach((event) => {
       render(new ItemEventView({point: event, offers: this.offerModel.getOffersByType(event.type), destination: this.destinationModel.getById(event.id)}), this.listEvents.getElement());
-    })
-  };
+    });
+  }
 }
