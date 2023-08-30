@@ -8,6 +8,6 @@ export default class OfferModel {
   }
 
   getOffersByType(type) {
-    return this.offers.filter(offer => offer.type === type);
+    return this.offers.filter((offer) => offer.type === type);
   }
 }

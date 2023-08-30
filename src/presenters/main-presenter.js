@@ -3,7 +3,6 @@ import SortView from '../view/sort-view.js';
 import ListEventsView from '../view/list-events-view.js';
 import ItemEventView from '../view/item-view.js';
 import AddNewPointView from '../view/add-new-point-view.js';
-import { getDestinationdById } from './../utils.js';
 
 export default class MainPresenter {
   listSort = new SortView();
@@ -26,8 +25,8 @@ export default class MainPresenter {
 
     render(new AddNewPointView({ point: this.pointsList[0], offers: this.offerModel.getOffersByType(this.pointsList[0].type), destination: this.destinationModel.getById(this.pointsList[0].id) }), this.listEvents.getElement());
 
-    this.pointsList.slice(1).forEach(event => {
+    this.pointsList.slice(1).forEach((event) => {
       render(new ItemEventView({point: event, offers: this.offerModel.getOffersByType(event.type), destination: this.destinationModel.getById(event.id)}), this.listEvents.getElement());
     })
-  }
+  };
 }

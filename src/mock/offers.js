@@ -30,10 +30,10 @@ const offers = [
     type: 'Flight',
     offers:
       {
-      id: 3,
-      title: 'Add meal',
-      price: 10
-    }
+        id: 3,
+        title: 'Add meal',
+        price: 10
+      }
   },
   {
     type: 'Check-in',

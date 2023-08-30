@@ -2,17 +2,17 @@ import { createElement } from '../render.js';
 import { formatStringToDate, formatStringToTime, countTimeInterval } from './../utils.js';
 
 function createOffersListTemplate(offers) {
-    if (offers.length === 0) {
-      return '';
-    }
+  if (offers.length === 0) {
+    return '';
+  }
 
-    for (let i = 0; i< offers.length; i++) {
-      return (`<li class="event__offer">
-          <span class="event__offer-title">${offers[i].offers.title}</span>
-          &plus;&euro;&nbsp;
-          <span class="event__offer-price">${offers[i].offers.price}</span>
-        </li>`)
-    }
+  for (let i = 0; i < offers.length; i++) {
+    return (`<li class="event__offer">
+        <span class="event__offer-title">${offers[i].offers.title}</span>
+        &plus;&euro;&nbsp;
+        <span class="event__offer-price">${offers[i].offers.price}</span>
+      </li>`);
+  }
 }
 
 function createItemEventTemplate(point, offers, destination) {

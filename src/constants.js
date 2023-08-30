@@ -10,6 +10,6 @@ const EVENT_CATEGORIES = [
   'Check-in',
   'Sightseeing',
   'Restaurant',
-]
+];
 
 export { TRIP_ITEM_COUNT, EVENT_CATEGORIES };

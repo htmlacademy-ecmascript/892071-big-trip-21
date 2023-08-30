@@ -11,13 +11,13 @@ const DEFAULT_EVENT = {
   isFavorite: true,
   offers: [6],
   type: 'Restaurant',
-}
+};
 
 function createOffersListTemplate(list) {
   if (list.length === 0) {
     return '';
   }
-  return list.map(offer => `
+  return list.map((offer) => `
     <div class="event__offer-selector">
       <input class="event__offer-checkbox  visually-hidden" id="event-offer-${offer.type}-1" type="checkbox" name="event-offer-${offer.type}">
       <label class="event__offer-label" for="event-offer-${offer.type}-1">
@@ -29,8 +29,8 @@ function createOffersListTemplate(list) {
   `);
 }
 
-function createTypeList( list ) {
-  return list.map(item => `
+function createTypeList(list) {
+  return list.map((item) => `
     <div class="event__type-item">
       <input id="event-type-${item.toLowerCase()}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${item.toLowerCase()}">
       <label class="event__type-label event__type-label--${item.toLowerCase()}" for="event-type-taxi-1">${item}</label>
@@ -39,7 +39,7 @@ function createTypeList( list ) {
 }
 
 function createImageList(list) {
-  return list.map(img => `
+  return list.map((img) => `
     <img class="event__photo" src="${img.src}" alt="${img.description}"></img>
   `).join('');
 }
