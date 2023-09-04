@@ -45,7 +45,7 @@ function createImageList(images) {
   `).join('');
 }
 
-function createAddNewPointTemplate(event, offers, destination, isEditMode) {
+function createAddNewPointTemplate(event, offers, destination) {
   const { type, dateFrom, dateTo, basePrice } = event;
   const dateStart = formatDefaultEventStringToTime(dateFrom);
   const dateEnd = formatDefaultEventStringToTime(dateTo);
@@ -127,15 +127,14 @@ function createAddNewPointTemplate(event, offers, destination, isEditMode) {
 }
 
 export default class AddNewPointView {
-  constructor({event = DEFAULT_EVENT, offers, destination, isEditMode = false}) {
+  constructor({event = DEFAULT_EVENT, offers, destination}) {
     this.event = event;
     this.offers = offers;
     this.destination = destination;
-    this.isEditMode = isEditMode;
   }
 
   getTemplate() {
-    return createAddNewPointTemplate(this.event, this.offers, this.destination, this.isEditMode);
+    return createAddNewPointTemplate(this.event, this.offers, this.destination);
   }
 
   getElement() {
