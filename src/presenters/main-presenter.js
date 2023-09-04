@@ -1,7 +1,7 @@
 import { render } from '../render.js';
 import SortView from '../view/sort-view.js';
 import ListEventsView from '../view/list-events-view.js';
-import ItemEventView from '../view/item-view.js';
+import PointView from '../view/point-view.js';
 import AddNewPointView from '../view/add-new-point-view.js';
 
 export default class MainPresenter {
@@ -23,10 +23,10 @@ export default class MainPresenter {
     render(this.listSort, this.eventsContainer);
     render(this.listEvents, this.eventsContainer);
 
-    render(new AddNewPointView({ point: this.pointsList[0], offers: this.offerModel.getOffersByType(this.pointsList[0].type), destination: this.destinationModel.getById(this.pointsList[0].id) }), this.listEvents.getElement());
+    render(new AddNewPointView({ point: this.pointsList[0], offers: this.offerModel.getOfferByType(this.pointsList[0].type), destination: this.destinationModel.getById(this.pointsList[0].id) }), this.listEvents.getElement());
 
     this.pointsList.slice(1).forEach((event) => {
-      render(new ItemEventView({point: event, offers: this.offerModel.getOffersByType(event.type), destination: this.destinationModel.getById(event.id)}), this.listEvents.getElement());
+      render(new PointView({point: event, offer: this.offerModel.getOfferByType(event.type), destination: this.destinationModel.getById(event.id)}), this.listEvents.getElement());
     });
   }
 }

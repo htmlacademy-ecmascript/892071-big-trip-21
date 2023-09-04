@@ -1,6 +1,6 @@
 const destinations = [
   {
-    id: '0',
+    id: 1,
     name: 'Amsterdam',
     description: 'Amsterdam is the capital and most populous city of the Netherlands, with The Hague being the seat of government. A few of Amsterdam\'s notable residents throughout its history include painters Rembrandt and Vincent van Gogh, seventeenth-century philosophers Baruch Spinoza, John Locke, René Descartes.',
     pictures: [
@@ -19,7 +19,7 @@ const destinations = [
     ]
   },
   {
-    id: '1',
+    id: 2,
     name: 'Paris',
     description: 'Paris is the capital and most populous city of France, located in northern central France, in a north-bending arc of the river Seine whose crest includes two islands, the Île Saint-Louis and the larger Île de la Cité, which form the oldest part of the city',
     pictures: [
@@ -38,7 +38,7 @@ const destinations = [
     ]
   },
   {
-    id: '2',
+    id: 3,
     name: 'London',
     description: 'London stands on the River Thames in south-east England at the head of a 50-mile (80 km) estuary down to the North Sea and has been a major settlement for two millennia',
     pictures: [
@@ -57,7 +57,7 @@ const destinations = [
     ]
   },
   {
-    id: '3',
+    id: 4,
     name: 'Bergeggi',
     description: 'Bergeggi is a comune (municipality) in the Province of Savona in the Italian region Liguria, located about 90 kilometres (56 mi) southwest of Genoa and about 10 kilometres (6 mi) southwest of Savona. In 2007 and 2008 the municipality was awarded the Blue Flag, which distinguishes the high quality of the beaches and the sea.',
     pictures: [
@@ -80,7 +80,7 @@ const destinations = [
     ]
   },
   {
-    id: '4',
+    id: 5,
     name: 'Barcelona',
     description: 'Barcelona is the capital and largest city of the autonomous community of Catalonia. Many of the buildings date from medieval times, some from as far back as the Roman settlement of Barcelona.',
     pictures: [
@@ -107,7 +107,7 @@ const destinations = [
     ]
   },
   {
-    id: '5',
+    id: 6,
     name: 'Bonn',
     description: 'Bonn is a federal city in the German state of North Rhine-Westphalia, located on the banks of the Rhine.',
     pictures: [
@@ -126,7 +126,7 @@ const destinations = [
     ]
   },
   {
-    id: '6',
+    id: 7,
     name: 'Como',
     description: 'Its proximity to Lake Como and to the Alps has made Como a tourist destination, and the city contains numerous works of art, churches, gardens, museums, theatres, parks, and palaces: the Duomo, seat of the Diocese of Como; the Basilica of Sant\'Abbondio; the Villa Olmo; the public gardens with the Tempio Voltiano; the Teatro Sociale; the Broletto or the city\'s medieval town hall; and the 20th-century Casa del Fascio.',
     pictures: [
@@ -145,7 +145,7 @@ const destinations = [
     ]
   },
   {
-    id: '7',
+    id: 8,
     name: 'Edinburgh ',
     description: '"Edin", the root of the city\'s name, derives from Eidyn, the name for this region in Cumbric, the Brittonic Celtic language formerly spoken there. The name\'s meaning is unknown.[16] The district of Eidyn is centred on the stronghold of Din Eidyn, the dun or hillfort of Eidyn.',
     pictures: [
@@ -169,4 +169,4 @@ function getDestinations() {
   return destinations;
 }
 
-export { destinations, getDestinations };
+export { getDestinations };

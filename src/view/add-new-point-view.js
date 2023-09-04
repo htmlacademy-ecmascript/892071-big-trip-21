@@ -1,6 +1,6 @@
 import { createElement } from '../render.js';
 import { formatDefaultEventStringToTime } from './../utils.js';
-import { EVENT_CATEGORIES } from './../constants.js';
+import { EVENT_TYPES } from './../constants.js';
 
 const DEFAULT_EVENT = {
   id: '1',
@@ -13,38 +13,39 @@ const DEFAULT_EVENT = {
   type: 'Restaurant',
 };
 
-function createOffersListTemplate(list) {
-  if (list.length === 0) {
+function createOffersListTemplate(offers, type) {
+  if (offers.length === 0) {
     return '';
   }
-  return list.map((offer) => `
-    <div class="event__offer-selector">
-      <input class="event__offer-checkbox  visually-hidden" id="event-offer-${offer.type}-1" type="checkbox" name="event-offer-${offer.type}">
-      <label class="event__offer-label" for="event-offer-${offer.type}-1">
-        <span class="event__offer-title">${offer.offers.title}</span>
-        &plus;&euro;&nbsp;
-        <span class="event__offer-price">${offer.offers.price}</span>
-      </label>
-    </div>
-  `);
-}
 
-function createTypeList(list) {
-  return list.map((item) => `
-    <div class="event__type-item">
-      <input id="event-type-${item.toLowerCase()}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${item.toLowerCase()}">
-      <label class="event__type-label event__type-label--${item.toLowerCase()}" for="event-type-taxi-1">${item}</label>
+  return offers.map((currentoffer, index) => `
+    <div class="event__offer-selector">
+      <input class="event__offer-checkbox  visually-hidden" id="event-offer-${type}-${index}" type="checkbox" name="event-offer-${type}">
+      <label class="event__offer-label" for="event-offer-${type}-${index}">
+        <span class="event__offer-title">${currentoffer.title}</span>
+        &plus;&euro;&nbsp;
+        <span class="event__offer-price">${currentoffer.price}</span>
+      </label>
     </div>
   `).join('');
 }
 
-function createImageList(list) {
-  return list.map((img) => `
+function createTypeList(types) {
+  return types.map((type, index) => `
+    <div class="event__type-item">
+      <input id="event-type-${type.toLowerCase()}-${index}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${type.toLowerCase()}">
+      <label class="event__type-label event__type-label--${type.toLowerCase()}" for="event-type-${type.toLowerCase()}-${index}">${type}</label>
+    </div>
+  `).join('');
+}
+
+function createImageList(images) {
+  return images.map((img) => `
     <img class="event__photo" src="${img.src}" alt="${img.description}"></img>
   `).join('');
 }
 
-function createAddNewPointTemplate(event, offersList, destination, isEditMode) {
+function createAddNewPointTemplate(event, offers, destination, isEditMode) {
   const { type, dateFrom, dateTo, basePrice } = event;
   const dateStart = formatDefaultEventStringToTime(dateFrom);
   const dateEnd = formatDefaultEventStringToTime(dateTo);
@@ -63,7 +64,7 @@ function createAddNewPointTemplate(event, offersList, destination, isEditMode) {
             <div class="event__type-list">
               <fieldset class="event__type-group">
                 <legend class="visually-hidden">Event type</legend>
-                ${createTypeList(EVENT_CATEGORIES)}
+                ${createTypeList(EVENT_TYPES)}
               </fieldset>
             </div>
           </div>
@@ -104,7 +105,7 @@ function createAddNewPointTemplate(event, offersList, destination, isEditMode) {
             <h3 class="event__section-title  event__section-title--offers">Offers</h3>
 
             <div class="event__available-offers">
-              ${createOffersListTemplate(offersList)}
+              ${createOffersListTemplate(offers, type)}
             </div>
           </section>
 
@@ -112,13 +113,11 @@ function createAddNewPointTemplate(event, offersList, destination, isEditMode) {
             <h3 class="event__section-title  event__section-title--destination">Destination</h3>
             <p class="event__destination-description">${destination ? destination.description : ''}</p>
 
-            ${!isEditMode ? `
-              <div class="event__photos-container">
-                <div class="event__photos-tape">
-                  ${destination ? createImageList(destination.pictures) : ''}
-                </div>
+            <div class="event__photos-container">
+              <div class="event__photos-tape">
+                ${destination ? createImageList(destination.pictures) : ''}
               </div>
-            ` : ''}
+            </div>
 
           </section>
         </section>

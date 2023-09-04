@@ -1,6 +1,6 @@
 const TRIP_ITEM_COUNT = 4;
 
-const EVENT_CATEGORIES = [
+const EVENT_TYPES = [
   'Taxi',
   'Bus',
   'Train',
@@ -12,4 +12,4 @@ const EVENT_CATEGORIES = [
   'Restaurant',
 ];
 
-export { TRIP_ITEM_COUNT, EVENT_CATEGORIES };
+export { TRIP_ITEM_COUNT, EVENT_TYPES };

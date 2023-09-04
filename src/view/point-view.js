@@ -1,21 +1,21 @@
 import { createElement } from '../render.js';
-import { formatStringToDate, formatStringToTime, countTimeInterval } from './../utils.js';
+import { formatStringToDate, formatStringToTime, countTimeInterval } from '../utils.js';
 
 function createOffersListTemplate(offers) {
   if (offers.length === 0) {
     return '';
   }
 
-  for (let i = 0; i < offers.length; i++) {
-    return (`<li class="event__offer">
-        <span class="event__offer-title">${offers[i].offers.title}</span>
-        &plus;&euro;&nbsp;
-        <span class="event__offer-price">${offers[i].offers.price}</span>
-      </li>`);
-  }
+  return offers.map((offer) => `
+    <li class="event__offer">
+      <span class="event__offer-title">${offer.title}</span>
+      &plus;&euro;&nbsp;
+      <span class="event__offer-price">${offer.price}</span>
+    </li>
+  `).join('');
 }
 
-function createItemEventTemplate(point, offers, destination) {
+function createPointTemplate(point, offers, destination) {
   const { type, dateFrom, dateTo, basePrice, isFavorite } = point;
   const dateStart = formatStringToDate(dateFrom);
   const timeStart = formatStringToTime(dateFrom);
@@ -31,7 +31,7 @@ function createItemEventTemplate(point, offers, destination) {
         <div class="event__type">
           <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
         </div>
-        <h3 class="event__title">${type} ${destination.name}</h3>
+        <h3 class="event__title">${type} ${destination ? destination.name : ''}</h3>
         <div class="event__schedule">
           <p class="event__time">
             <time class="event__start-time" datetime="${dateFrom}">${timeStart}</time>
@@ -61,15 +61,16 @@ function createItemEventTemplate(point, offers, destination) {
   `;
 }
 
-export default class ItemEventView {
-  constructor({point, offers, destination}) {
+export default class PointView {
+  constructor({point, offer, destination}) {
     this.point = point;
-    this.offers = offers;
+    this.offer = offer;
     this.destination = destination;
+    // console.log(this.offer)
   }
 
   getTemplate() {
-    return createItemEventTemplate(this.point, this.offers, this.destination);
+    return createPointTemplate(this.point, this.offer, this.destination);
   }
 
   getElement() {

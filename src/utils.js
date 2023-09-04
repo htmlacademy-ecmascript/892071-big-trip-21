@@ -36,12 +36,14 @@ function countTimeInterval(timeStart, timeEnd) {
   if (timeInterval > MINUTES_IN_HOUR && timeInterval < MINUTES_IN_DAY) {
     hours = Math.floor(timeInterval / MINUTES_IN_HOUR);
     minutes = timeInterval % MINUTES_IN_HOUR;
+
     return `${hours}H ${minutes}M`;
   }
 
   if (timeInterval > MINUTES_IN_DAY) {
     days = Math.floor(timeInterval / MINUTES_IN_DAY);
     minutes = timeInterval % MINUTES_IN_DAY;
+
     if (minutes > MINUTES_IN_HOUR) {
       hours = Math.floor(minutes / MINUTES_IN_HOUR);
       minutes = minutes % MINUTES_IN_HOUR;
