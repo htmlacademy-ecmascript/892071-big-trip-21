@@ -101,8 +101,8 @@ function createAddNewPointTemplate(point, offers, destination, isEditMode) {
           <button class="event__reset-btn" type="reset">Cancel</button>
           ${isEditMode ?
             `<button class="event__rollup-btn" type="button">
-            <span class="visually-hidden">Open event</span>
-          </button>` : ''}
+              <span class="visually-hidden">Open event</span>
+            </button>` : ''}
 
         </header>
 
@@ -161,10 +161,10 @@ export default class AddNewPointView extends AbstractView {
   #resetButtonClickHandler = (evt) => {
     evt.preventDefault();
     this.#onResetClick();
-  }
+  };
 
   #submitFormHandler = (evt) => {
     evt.preventDefault();
     this.#onSubmitClick();
-  }
+  };
 }
