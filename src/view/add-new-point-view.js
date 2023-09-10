@@ -1,4 +1,4 @@
-import { formatDefaultEventStringToTime } from './../utils.js';
+import { formatDefaultEventStringToTime } from './../utils/point.js';
 import { EVENT_TYPES } from './../constants.js';
 import AbstractView from './../framework/view/abstract-view.js';
 
@@ -30,10 +30,11 @@ function createOffersListTemplate(offers, type) {
   `).join('');
 }
 
-function createTypeList(types) {
+function createTypeList(types, currentType) {
+
   return types.map((type, index) => `
     <div class="event__type-item">
-      <input id="event-type-${type.toLowerCase()}-${index}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${type.toLowerCase()}">
+      <input id="event-type-${type.toLowerCase()}-${index}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${type.toLowerCase()}" ${currentType === type ? 'checked' : ''}>
       <label class="event__type-label event__type-label--${type.toLowerCase()}" for="event-type-${type.toLowerCase()}-${index}">${type}</label>
     </div>
   `).join('');
@@ -64,7 +65,7 @@ function createAddNewPointTemplate(point, offers, destination, isEditMode) {
             <div class="event__type-list">
               <fieldset class="event__type-group">
                 <legend class="visually-hidden">Event type</legend>
-                ${createTypeList(EVENT_TYPES)}
+                ${createTypeList(EVENT_TYPES, type)}
               </fieldset>
             </div>
           </div>

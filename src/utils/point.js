@@ -53,10 +53,25 @@ function countTimeInterval(timeStart, timeEnd) {
   }
 }
 
+function isCurrentDay(date) {
+  return dayjs(date).isSame(dayjs(), 'D');
+}
+
+function isDateExpired(date) {
+  return dayjs(date).isAfter(dayjs(), 'D');
+}
+
+function isDateFuture(date) {
+  return dayjs(date).isBefore(dayjs(), 'D');
+}
+
 export {
   getRandomArrayElement,
   formatStringToDate,
   formatStringToTime,
   formatDefaultEventStringToTime,
-  countTimeInterval
+  countTimeInterval,
+  isCurrentDay,
+  isDateExpired,
+  isDateFuture
 };

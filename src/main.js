@@ -5,6 +5,7 @@ import TripInfoView from './view/trip-info-view.js';
 import PointModel from './model/point-model.js';
 import OfferModel from './model/offer-model.js';
 import DestinationModel from './model/destination-model.js';
+import { generateFilter } from './mock/filters.js';
 
 const headerContainer = document.querySelector('.page-header');
 const mainContainer = document.querySelector('.page-main');
@@ -24,7 +25,9 @@ const mainPresenter = new MainPresenter({
   destinationModel
 });
 
+const filters = generateFilter();
+
 render(new TripInfoView(), tripInfoContainer, RenderPosition.AFTERBEGIN);
-render(new FiltersView(), filtersContainer);
+render(new FiltersView({filters}), filtersContainer);
 
 mainPresenter.init();

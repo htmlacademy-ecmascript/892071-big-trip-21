@@ -1,4 +1,4 @@
-import { formatStringToDate, formatStringToTime, countTimeInterval } from '../utils.js';
+import { formatStringToDate, formatStringToTime, countTimeInterval } from './../utils/point.js';
 import AbstractView from './../framework/view/abstract-view.js';
 
 function createOffersListTemplate(offers) {
