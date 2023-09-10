@@ -8,7 +8,7 @@ import EmptyListView from '../view/empty-list-view.js';
 export default class MainPresenter {
   #listSort = new SortView();
   #listEvents = new ListEventsView();
-  #emptyList = new EmptyListView()
+  #emptyList = new EmptyListView();
   #eventsContainer = null;
   #pointModel = null;
   #offerModel = null;

@@ -6,6 +6,6 @@ const filter = {
   [FilterType.FUTURE]: (points) => points.filter((point) => isDateFuture(point.dateFrom)),
   [FilterType.PRESENT]: (points) => points.filter((point) => isCurrentDay(point.dateFrom)),
   [FilterType.PAST]: (points) => points.filter((point) => isDateExpired(point.dateFrom)),
-}
+};
 
 export { filter };

@@ -17,6 +17,6 @@ const FilterType = {
   FUTURE: 'Future',
   PRESENT: 'Present',
   PAST: 'Past',
-}
+};
 
 export { TRIP_ITEM_COUNT, EVENT_TYPES, FilterType };
