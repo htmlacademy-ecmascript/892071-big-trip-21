@@ -1,8 +1,8 @@
 import { filter } from './../utils/filter.js';
 
 function generateFilter() {
-  return Object.keys(filter)
-    .map((filterType) => ({
+  return Object.keys(filter).map(
+    (filterType) => ({
       type: filterType
     })
   );
