@@ -1,6 +1,6 @@
-import { createElement } from '../render.js';
 import { formatDefaultEventStringToTime } from './../utils.js';
 import { EVENT_TYPES } from './../constants.js';
+import AbstractView from './../framework/view/abstract-view.js';
 
 const DEFAULT_EVENT = {
   id: '1',
@@ -45,8 +45,8 @@ function createImageList(images) {
   `).join('');
 }
 
-function createAddNewPointTemplate(event, offers, destination) {
-  const { type, dateFrom, dateTo, basePrice } = event;
+function createAddNewPointTemplate(point, offers, destination, isEditMode) {
+  const { type, dateFrom, dateTo, basePrice } = point;
   const dateStart = formatDefaultEventStringToTime(dateFrom);
   const dateEnd = formatDefaultEventStringToTime(dateTo);
 
@@ -99,7 +99,13 @@ function createAddNewPointTemplate(event, offers, destination) {
 
           <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
           <button class="event__reset-btn" type="reset">Cancel</button>
+          ${isEditMode ?
+            `<button class="event__rollup-btn" type="button">
+            <span class="visually-hidden">Open event</span>
+          </button>` : ''}
+
         </header>
+
         <section class="event__details">
           <section class="event__section  event__section--offers">
             <h3 class="event__section-title  event__section-title--offers">Offers</h3>
@@ -126,26 +132,39 @@ function createAddNewPointTemplate(event, offers, destination) {
   `;
 }
 
-export default class AddNewPointView {
-  constructor({event = DEFAULT_EVENT, offers, destination}) {
-    this.event = event;
-    this.offers = offers;
-    this.destination = destination;
+export default class AddNewPointView extends AbstractView {
+  #point = null;
+  #offers = null;
+  #destination = null;
+  #isEditMode = null;
+  #onResetClick = null;
+  #onSubmitClick = null;
+
+
+  constructor({point, offers, destination, isEditMode = true, onResetClick, onSubmitClick}) {
+    super();
+    this.#point = isEditMode ? point : DEFAULT_EVENT;
+    this.#offers = offers;
+    this.#destination = destination;
+    this.#isEditMode = isEditMode;
+    this.#onResetClick = onResetClick;
+    this.#onSubmitClick = onSubmitClick;
+
+    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#resetButtonClickHandler);
+    this.element.querySelector('form').addEventListener('submit', this.#submitFormHandler);
   }
 
-  getTemplate() {
-    return createAddNewPointTemplate(this.event, this.offers, this.destination);
+  get template() {
+    return createAddNewPointTemplate(this.#point, this.#offers, this.#destination, this.#isEditMode);
   }
 
-  getElement() {
-    if(!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
+  #resetButtonClickHandler = (evt) => {
+    evt.preventDefault();
+    this.#onResetClick();
   }
 
-  removeElement() {
-    this.element = null;
+  #submitFormHandler = (evt) => {
+    evt.preventDefault();
+    this.#onSubmitClick();
   }
 }

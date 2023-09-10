@@ -1,32 +1,104 @@
-import { render } from '../render.js';
+import { render, replace } from './../framework/render.js';
 import SortView from '../view/sort-view.js';
 import ListEventsView from '../view/list-events-view.js';
 import PointView from '../view/point-view.js';
 import AddNewPointView from '../view/add-new-point-view.js';
 
 export default class MainPresenter {
-  listSort = new SortView();
-  listEvents = new ListEventsView();
+  #listSort = new SortView();
+  #listEvents = new ListEventsView();
+  #eventsContainer = null;
+  #pointModel = null;
+  #offerModel = null;
+  #destinationModel = null;
+
+  #pointsList = [];
+  #offersList = [];
+  #destinationsList = [];
 
   constructor({ eventsContainer, pointModel, offerModel, destinationModel }) {
-    this.eventsContainer = eventsContainer;
-    this.pointModel = pointModel;
-    this.offerModel = offerModel;
-    this.destinationModel = destinationModel;
+    this.#eventsContainer = eventsContainer;
+    this.#pointModel = pointModel;
+    this.#offerModel = offerModel;
+    this.#destinationModel = destinationModel;
   }
 
   init() {
-    this.pointsList = [...this.pointModel.getPoints()];
-    this.offersList = [...this.offerModel.getOffers()];
-    this.destinationsList = [...this.destinationModel.getDestinations()];
+    this.#pointsList = [...this.#pointModel.points];
+    this.#offersList = [...this.#offerModel.offers];
+    this.#destinationsList = [...this.#destinationModel.destinations];
 
-    render(this.listSort, this.eventsContainer);
-    render(this.listEvents, this.eventsContainer);
+    render(this.#listSort, this.#eventsContainer);
+    render(this.#listEvents, this.#eventsContainer);
 
-    render(new AddNewPointView({ point: this.pointsList[0], offers: this.offerModel.getOfferByType(this.pointsList[0].type), destination: this.destinationModel.getById(this.pointsList[0].id) }), this.listEvents.getElement());
-
-    this.pointsList.slice(1).forEach((event) => {
-      render(new PointView({point: event, offer: this.offerModel.getOfferByType(event.type), destination: this.destinationModel.getById(event.id)}), this.listEvents.getElement());
+    this.#pointsList.forEach((event) => {
+      this.#renderPoint(event);
     });
+  }
+
+  #renderPoint(point) {
+    const escKeyDownHandler = (evt) => {
+      if (evt.key === 'Escape') {
+        evt.preventDefault();
+        replaceEditFormToPoint();
+        document.removeEventListener('keydown', escKeyDownHandler);
+      }
+    };
+
+    const pointComponent = new PointView({
+      point: point,
+      offers: this.#offerModel.getOfferByType(point.type),
+      destination: this.#destinationModel.getById(point.id),
+      onEditClick: pointEditClickHandler
+    });
+
+    const editPointComponent = new AddNewPointView({
+      point: point,
+      offers: this.#offerModel.getOfferByType(point.type),
+      destination: this.#destinationModel.getById(point.id),
+      isEditMode: true,
+      onResetClick: resetButtonClickHandler,
+      onSubmitClick: submitFormHandler
+    });
+
+    /**
+     * замена компонента ивента формой редактирования
+     */
+    function replacePointToEditForm() {
+      replace(editPointComponent, pointComponent);
+    }
+
+    /**
+     * замена формы редактирования компонентом ивента
+     */
+    function replaceEditFormToPoint() {
+      replace(pointComponent, editPointComponent);
+    }
+
+    /**
+     * обработчик раскрытия формы редактирования
+     */
+    function pointEditClickHandler() {
+      replacePointToEditForm();
+      document.addEventListener('keydown', escKeyDownHandler);
+    }
+
+    /**
+     * обработчик закрытия формы редактирования
+     */
+    function resetButtonClickHandler() {
+      replaceEditFormToPoint();
+      document.removeEventListener('keydown', escKeyDownHandler);
+    }
+
+    /**
+     * обработчик отправки формы
+     */
+    function submitFormHandler() {
+      replaceEditFormToPoint();
+      document.removeEventListener('keydown', escKeyDownHandler);
+    }
+
+    render(pointComponent, this.#listEvents.element);
   }
 }
