@@ -7,7 +7,7 @@ export default class OfferModel {
     return this.#offers;
   }
 
-  getOfferByType(type) {
+  getOffersByType(type) {
     return this.#offers
       .filter((offer) => offer.type === type)
       .reduce((newArr, offerObject) => {

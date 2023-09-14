@@ -134,12 +134,11 @@ function createAddNewPointTemplate(point, offers, destination, isEditMode) {
 
 export default class AddNewPointView extends AbstractView {
   #point = null;
-  #offers = null;
+  #offers = [];
   #destination = null;
   #isEditMode = null;
   #onResetClick = null;
   #onSubmitClick = null;
-
 
   constructor({point, offers, destination, isEditMode = true, onResetClick, onSubmitClick}) {
     super();
