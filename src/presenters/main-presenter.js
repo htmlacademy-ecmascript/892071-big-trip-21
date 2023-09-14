@@ -3,10 +3,12 @@ import SortView from '../view/sort-view.js';
 import ListEventsView from '../view/list-events-view.js';
 import PointView from '../view/point-view.js';
 import AddNewPointView from '../view/add-new-point-view.js';
+import EmptyListView from '../view/empty-list-view.js';
 
 export default class MainPresenter {
   #listSort = new SortView();
   #listEvents = new ListEventsView();
+  #emptyList = new EmptyListView();
   #eventsContainer = null;
   #pointModel = null;
   #offerModel = null;
@@ -30,6 +32,10 @@ export default class MainPresenter {
 
     render(this.#listSort, this.#eventsContainer);
     render(this.#listEvents, this.#eventsContainer);
+
+    if (this.#pointsList.length === 0) {
+      render(this.#emptyList, this.#eventsContainer);
+    }
 
     this.#pointsList.forEach((event) => {
       this.#renderPoint(event);

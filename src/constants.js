@@ -12,4 +12,11 @@ const EVENT_TYPES = [
   'Restaurant',
 ];
 
-export { TRIP_ITEM_COUNT, EVENT_TYPES };
+const FilterType = {
+  EVERTFING: 'Everything',
+  FUTURE: 'Future',
+  PRESENT: 'Present',
+  PAST: 'Past',
+};
+
+export { TRIP_ITEM_COUNT, EVENT_TYPES, FilterType };
