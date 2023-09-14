@@ -47,14 +47,14 @@ export default class MainPresenter {
 
     const pointComponent = new PointView({
       point: point,
-      offers: this.#offerModel.getOfferByType(point.type),
+      offers: this.#offerModel.getOffersByType(point.type),
       destination: this.#destinationModel.getById(point.id),
       onEditClick: pointEditClickHandler
     });
 
     const editPointComponent = new AddNewPointView({
       point: point,
-      offers: this.#offerModel.getOfferByType(point.type),
+      offers: this.#offerModel.getOffersByType(point.type),
       destination: this.#destinationModel.getById(point.id),
       isEditMode: true,
       onResetClick: resetButtonClickHandler,
