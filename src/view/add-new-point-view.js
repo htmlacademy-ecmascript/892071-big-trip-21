@@ -99,7 +99,8 @@ function createAddNewPointTemplate(point, offers, destination, isEditMode) {
           </div>
 
           <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
-          <button class="event__reset-btn" type="reset">Cancel</button>
+          <button class="event__reset-btn" type="reset">${isEditMode ? 'Delete' : 'Cancel'}</button>
+
           ${isEditMode ? `<button class="event__rollup-btn" type="button">
             <span class="visually-hidden">Open event</span>
           </button>` : ''}
@@ -150,6 +151,7 @@ export default class AddNewPointView extends AbstractView {
     this.#onSubmitClick = onSubmitClick;
 
     this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#resetButtonClickHandler);
+
     this.element.querySelector('form').addEventListener('submit', this.#submitFormHandler);
   }
 
@@ -164,6 +166,6 @@ export default class AddNewPointView extends AbstractView {
 
   #submitFormHandler = (evt) => {
     evt.preventDefault();
-    this.#onSubmitClick();
+    this.#onSubmitClick(this.#point);
   };
 }
