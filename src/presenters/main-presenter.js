@@ -1,11 +1,11 @@
-import { remove, render, replace } from './../framework/render.js';
+import { remove, render, replace, RenderPosition } from './../framework/render.js';
 import SortView from '../view/sort-view.js';
 import ListEventsView from '../view/list-events-view.js';
 import EmptyListView from '../view/empty-list-view.js';
 import PointPresenter from './point-presenter.js';
 import { updatePoint } from './../utils/point.js';
 import { sort } from './../utils/sort.js';
-import { SortType, enabledSortType } from './../constants.js';
+import { SortType, EnabledSortType } from './../constants.js';
 
 export default class MainPresenter {
   #listSort = null;
@@ -30,7 +30,7 @@ export default class MainPresenter {
     this.#offerModel = offerModel;
     this.#destinationModel = destinationModel;
 
-    this.#pointsList = sort[SortType.DAY]([...this.#pointModel.points]);
+    this.#pointsList = sort[SortType.DAY](this.#pointModel.points);
   }
 
   init() {
@@ -59,32 +59,20 @@ export default class MainPresenter {
     this.#pointsPresenters.get(updatedPoint.id).init(updatedPoint, this.#offerModel, this.#destinationModel);
   };
 
-  /**
-   * отрисовка контейнера списка задач
-   */
   #renderContainer() {
     render(this.#listEvents, this.#eventsContainer);
   }
 
-  /**
-   * отрисовка точек маршрута
-   */
   #renderPoints() {
     this.#pointsList.forEach((point) => {
       this.#renderPoint(point);
     });
   }
 
-  /**
-   * отрисовка заглушки
-   */
   #renderEmptyList() {
     render(this.#emptyList, this.#eventsContainer);
   }
 
-  /**
-   * отрисовка элементов страницы
-   */
   #renderBoard() {
     if (this.#pointsList.length === 0) {
       this.#renderEmptyList();
@@ -97,27 +85,16 @@ export default class MainPresenter {
     this.#renderPoints();
   }
 
-  /**
-   * очистка списка
-   */
   #clearPointList() {
     this.#pointsPresenters.forEach((presenter) => presenter.destroy());
     this.#pointsPresenters.clear();
   }
 
-  /**
-   * сортировка по типу
-   * @param sortType тип
-   */
   #sortPoints(sortType) {
     this.#currentSortType = sortType;
     this.#pointsList = sort[this.#currentSortType](this.#pointsList);
   }
 
-  /**
-   * обработчик изменения типа сортировки
-   * @param sortType тип
-   */
   #handleSortTypeChange = (sortType) => {
     if (this.#currentSortType === sortType) {
       return;
@@ -129,9 +106,6 @@ export default class MainPresenter {
     this.#renderPoints();
   };
 
-  /**
-   * отрисовка компонента сортировки
-   */
   #renderSort() {
     const prevSortList = this.#listSort;
 
@@ -139,7 +113,7 @@ export default class MainPresenter {
       .map((type) => ({
         type,
         isChecked: (type === this.#currentSortType),
-        isDisabled: !enabledSortType[type]
+        isDisabled: !EnabledSortType[type]
       }));
 
     this.#listSort = new SortView({
@@ -150,8 +124,8 @@ export default class MainPresenter {
     if (prevSortList) {
       replace(this.#listSort, prevSortList);
       remove(prevSortList);
-    } else {
-      render(this.#listSort, this.#eventsContainer);
     }
+
+    render(this.#listSort, this.#eventsContainer, RenderPosition.AFTERBEGIN);
   }
 }

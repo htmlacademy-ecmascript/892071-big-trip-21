@@ -27,7 +27,7 @@ const SortType = {
   OFFER: 'offer'
 };
 
-const enabledSortType = {
+const EnabledSortType = {
   [SortType.DAY]: true,
   [SortType.EVENT]: false,
   [SortType.TIME]: true,
@@ -35,4 +35,4 @@ const enabledSortType = {
   [SortType.OFFER]: false,
 };
 
-export { TRIP_ITEM_COUNT, EVENT_TYPES, FilterType, SortType, enabledSortType };
+export { TRIP_ITEM_COUNT, EVENT_TYPES, FilterType, SortType, EnabledSortType };

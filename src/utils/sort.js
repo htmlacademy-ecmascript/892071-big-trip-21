@@ -54,9 +54,9 @@ function sortByPrice(pointA, pointB) {
     }
 
     return 0;
-  } else {
-    return weight;
   }
+
+  return weight;
 }
 
 /**
@@ -82,9 +82,9 @@ function sortByTime(pointA, pointB) {
     }
 
     return 0;
-  } else {
-    return -1;
   }
+
+  return -1;
 }
 
 const sort = {
