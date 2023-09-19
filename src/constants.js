@@ -19,4 +19,20 @@ const FilterType = {
   PAST: 'Past',
 };
 
-export { TRIP_ITEM_COUNT, EVENT_TYPES, FilterType };
+const SortType = {
+  DAY: 'day',
+  EVENT: 'event',
+  TIME: 'time',
+  PRICE: 'price',
+  OFFER: 'offer'
+};
+
+const EnabledSortType = {
+  [SortType.DAY]: true,
+  [SortType.EVENT]: false,
+  [SortType.TIME]: true,
+  [SortType.PRICE]: true,
+  [SortType.OFFER]: false,
+};
+
+export { TRIP_ITEM_COUNT, EVENT_TYPES, FilterType, SortType, EnabledSortType };
