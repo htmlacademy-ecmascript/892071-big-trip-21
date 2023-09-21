@@ -1,7 +1,7 @@
 import { formatDefaultEventStringToTime } from '../utils/point.js';
 import { EVENT_TYPES } from '../constants.js';
 import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
-import { modifyStringToCapitalize } from '../utils/common.js';
+import { modifyStringToCapitalize, getOffersByType, getById } from '../utils/common.js';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
@@ -17,11 +17,11 @@ const DEFAULT_EVENT = {
 };
 
 function createOptionsDestinationList(destinations) {
-  return destinations.destinations.map((dest) => `<option value="${dest.name}">${dest.name}</option>`).join('');
+  return destinations.map((dest) => `<option value="${dest.name}">${dest.name}</option>`).join('');
 }
 
 function createOffersListTemplate(offers, type) {
-  const filteredOffers = offers.getOffersByType(type);
+  const filteredOffers = getOffersByType(offers, type);
   if (filteredOffers.length === 0) {
     return '';
   }
@@ -63,8 +63,8 @@ function createDestinationTemplate(currentDestination) {
   return (`
     <section class="event__section  event__section--destination">
       <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-      <p class="event__destination-description">${currentDestination.description}</p>
-
+      ${currentDestination.description ? `
+        <p class="event__destination-description">${currentDestination.description}</p>` : ''}
       <div class="event__photos-container">
         <div class="event__photos-tape">
           ${currentDestination.pictures.length !== 0 ? createImageList(currentDestination.pictures) : ''}
@@ -86,7 +86,7 @@ function createAddNewPointTemplate(state, offers, destinations, isEditMode) {
 
   const dateStart = formatDefaultEventStringToTime(point.dateFrom);
   const dateEnd = formatDefaultEventStringToTime(point.dateTo);
-  const currentDestination = destinations.getById(point.destination);
+  const currentDestination = getById(destinations, point.destination);
 
   return `
     <li class="trip-events__item">
@@ -226,7 +226,7 @@ export default class AddNewPointView extends AbstractStatefulView {
   };
 
   #destinationChangeHandler = (evt) => {
-    const selectedDestination = this.#destinations.destinations.find((dest) => dest.name === evt.target.value);
+    const selectedDestination = this.#destinations.find((dest) => dest.name === evt.target.value);
     if (!selectedDestination) {
       return;
     }

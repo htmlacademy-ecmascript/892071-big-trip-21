@@ -37,16 +37,16 @@ export default class PointPresenter {
 
     this.#pointComponent = new PointView({
       point: this.#point,
-      offers: this.#offerModel,
-      destinations: this.#destinationModel,
+      offers: this.#offerModel.offers,
+      destinations: this.#destinationModel.destinations,
       onEditClick: this.#pointEditClickHandler,
       onFavoriteClick: this.#favoriteClickHandler
     });
 
     this.#pointEditComponent = new AddNewPointView({
       point: this.#point,
-      offers: this.#offerModel,
-      destinations: this.#destinationModel,
+      offers: this.#offerModel.offers,
+      destinations: this.#destinationModel.destinations,
       isEditMode: true,
       onResetClick: this.#resetButtonClickHandler,
       onSubmitClick: this.#submitFormHandler,

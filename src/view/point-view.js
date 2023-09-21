@@ -1,12 +1,13 @@
 import { formatStringToDate, formatStringToTime, countTimeInterval } from './../utils/point.js';
 import AbstractView from './../framework/view/abstract-view.js';
+import { getOffersByType, getById } from './../utils/common.js';
 
 function createOffersListTemplate(offers, type) {
   if (offers.length === 0) {
     return '';
   }
 
-  return offers.getOffersByType(type).map((offer) => `
+  return getOffersByType(offers, type).map((offer) => `
     <li class="event__offer">
       <span class="event__offer-title">${offer.title}</span>
       &plus;&euro;&nbsp;
@@ -18,7 +19,7 @@ function createOffersListTemplate(offers, type) {
 function createPointTemplate(point, offers, destinations) {
   const { type, dateFrom, dateTo, basePrice, isFavorite, destination } = point;
 
-  const currentDestination = destinations.getById(destination);
+  const currentDestination = getById(destinations, destination);
 
   const dateStart = formatStringToDate(dateFrom);
   const timeStart = formatStringToTime(dateFrom);
