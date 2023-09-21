@@ -6,13 +6,4 @@ export default class OfferModel {
   get offers() {
     return this.#offers;
   }
-
-  getOffersByType(type) {
-    return this.#offers
-      .filter((offer) => offer.type === type)
-      .reduce((newArr, offerObject) => {
-        offerObject.offers.forEach((offer) => newArr.push(offer));
-        return newArr;
-      }, []);
-  }
 }

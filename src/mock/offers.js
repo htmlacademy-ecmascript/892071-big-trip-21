@@ -1,6 +1,6 @@
 const offers = [
   {
-    type: 'Taxi',
+    type: 'taxi',
     offers: [
       {
         id: 0,
@@ -15,7 +15,7 @@ const offers = [
     ]
   },
   {
-    type: 'Bus',
+    type: 'bus',
     offers: [
       {
         id: 0,
@@ -30,7 +30,7 @@ const offers = [
     ]
   },
   {
-    type: 'Drive',
+    type: 'drive',
     offers: [
       {
         id: 0,
@@ -40,7 +40,7 @@ const offers = [
     ]
   },
   {
-    type: 'Train',
+    type: 'train',
     offers: [
       {
         id: 0,
@@ -55,7 +55,7 @@ const offers = [
     ]
   },
   {
-    type: 'Flight',
+    type: 'flight',
     offers: [
       {
         id: 0,
@@ -70,7 +70,7 @@ const offers = [
     ]
   },
   {
-    type: 'Check-in',
+    type: 'check-in',
     offers: [
       {
         id: 0,
@@ -80,7 +80,7 @@ const offers = [
     ]
   },
   {
-    type: 'Restaurant',
+    type: 'restaurant',
     offers: [
       {
         id: 0,
@@ -90,7 +90,7 @@ const offers = [
     ]
   },
   {
-    type: 'Ship',
+    type: 'ship',
     offers: [
       {
         id: 0,

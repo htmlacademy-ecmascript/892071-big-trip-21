@@ -1,5 +1,5 @@
 import PointView from './../view/point-view.js';
-import AddNewPointView from './../view/add-new-point-view.js';
+import AddNewPointView from '../view/add-new-point-view.js';
 import { render, replace, remove } from './../framework/render.js';
 
 const Mode = {
@@ -37,16 +37,16 @@ export default class PointPresenter {
 
     this.#pointComponent = new PointView({
       point: this.#point,
-      offers: this.#offerModel.getOffersByType(this.#point.type),
-      destination: this.#destinationModel.getById(this.#point.id),
+      offers: this.#offerModel.offers,
+      destinations: this.#destinationModel.destinations,
       onEditClick: this.#pointEditClickHandler,
       onFavoriteClick: this.#favoriteClickHandler
     });
 
     this.#pointEditComponent = new AddNewPointView({
       point: this.#point,
-      offers: this.#offerModel.getOffersByType(this.#point.type),
-      destination: this.#destinationModel.getById(this.#point.id),
+      offers: this.#offerModel.offers,
+      destinations: this.#destinationModel.destinations,
       isEditMode: true,
       onResetClick: this.#resetButtonClickHandler,
       onSubmitClick: this.#submitFormHandler,
@@ -77,6 +77,7 @@ export default class PointPresenter {
 
   resetView() {
     if (this.#mode !== Mode.DEFAULT) {
+      this.#pointEditComponent.reset(this.#point);
       this.#replaceEditFormToPoint();
     }
   }
@@ -88,6 +89,7 @@ export default class PointPresenter {
   #escKeyDownHandler = (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
+      this.#pointEditComponent.reset(this.#point);
       this.#replaceEditFormToPoint();
     }
   };
@@ -103,6 +105,7 @@ export default class PointPresenter {
    * обработчик закрытия формы редактирования
    */
   #resetButtonClickHandler = () => {
+    this.#pointEditComponent.reset(this.#point);
     this.#replaceEditFormToPoint();
   };
 
