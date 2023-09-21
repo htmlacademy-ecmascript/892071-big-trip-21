@@ -1,12 +1,12 @@
 import { formatStringToDate, formatStringToTime, countTimeInterval } from './../utils/point.js';
 import AbstractView from './../framework/view/abstract-view.js';
 
-function createOffersListTemplate(offers) {
+function createOffersListTemplate(offers, type) {
   if (offers.length === 0) {
     return '';
   }
 
-  return offers.map((offer) => `
+  return offers.getOffersByType(type).map((offer) => `
     <li class="event__offer">
       <span class="event__offer-title">${offer.title}</span>
       &plus;&euro;&nbsp;
@@ -15,8 +15,11 @@ function createOffersListTemplate(offers) {
   `).join('');
 }
 
-function createPointTemplate(point, offers, destination) {
-  const { type, dateFrom, dateTo, basePrice, isFavorite } = point;
+function createPointTemplate(point, offers, destinations) {
+  const { type, dateFrom, dateTo, basePrice, isFavorite, destination } = point;
+
+  const currentDestination = destinations.getById(destination);
+
   const dateStart = formatStringToDate(dateFrom);
   const timeStart = formatStringToTime(dateFrom);
   const timeEnd = formatStringToTime(dateTo);
@@ -31,7 +34,7 @@ function createPointTemplate(point, offers, destination) {
         <div class="event__type">
           <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
         </div>
-        <h3 class="event__title">${type} ${destination ? destination.name : ''}</h3>
+        <h3 class="event__title">${type} ${currentDestination ? currentDestination.name : ''}</h3>
         <div class="event__schedule">
           <p class="event__time">
             <time class="event__start-time" datetime="${dateFrom}">${timeStart}</time>
@@ -45,7 +48,7 @@ function createPointTemplate(point, offers, destination) {
         </p>
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">
-        ${createOffersListTemplate(offers)}
+        ${createOffersListTemplate(offers, type)}
         </ul>
         <button class="event__favorite-btn ${addActiveClass}" type="button">
           <span class="visually-hidden">Add to favorite</span>
@@ -64,15 +67,15 @@ function createPointTemplate(point, offers, destination) {
 export default class PointView extends AbstractView {
   #point = null;
   #offers = [];
-  #destination = null;
+  #destinations = null;
   #onEditClick = null;
   #onFavoriteClick = null;
 
-  constructor({point, offers, destination, onEditClick, onFavoriteClick}) {
+  constructor({point, offers, destinations, onEditClick, onFavoriteClick}) {
     super();
     this.#point = point;
     this.#offers = offers;
-    this.#destination = destination;
+    this.#destinations = destinations;
     this.#onEditClick = onEditClick;
     this.#onFavoriteClick = onFavoriteClick;
 
@@ -81,7 +84,7 @@ export default class PointView extends AbstractView {
   }
 
   get template() {
-    return createPointTemplate(this.#point, this.#offers, this.#destination);
+    return createPointTemplate(this.#point, this.#offers, this.#destinations);
   }
 
   #editClickHandler = (evt) => {

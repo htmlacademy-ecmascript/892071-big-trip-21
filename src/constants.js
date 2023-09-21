@@ -1,15 +1,15 @@
 const TRIP_ITEM_COUNT = 4;
 
 const EVENT_TYPES = [
-  'Taxi',
-  'Bus',
-  'Train',
-  'Ship',
-  'Drive',
-  'Flight',
-  'Check-in',
-  'Sightseeing',
-  'Restaurant',
+  'taxi',
+  'bus',
+  'train',
+  'ship',
+  'drive',
+  'flight',
+  'check-in',
+  'sightseeing',
+  'restaurant',
 ];
 
 const FilterType = {
@@ -35,4 +35,10 @@ const EnabledSortType = {
   [SortType.OFFER]: false,
 };
 
-export { TRIP_ITEM_COUNT, EVENT_TYPES, FilterType, SortType, EnabledSortType };
+export {
+  TRIP_ITEM_COUNT,
+  EVENT_TYPES,
+  FilterType,
+  SortType,
+  EnabledSortType
+};
